@@ -1,53 +1,64 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
-import { PlayCircle, Heart, BookOpen } from 'lucide-react';
+import { Play, Heart, Sparkles } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="min-h-screen font-sans">
+    <div className="min-h-screen font-sans bg-[#0B1426]">
       <Navbar />
       
-      <section className="relative h-[90vh] flex items-center justify-center bg-navy text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/40 z-10" />
+      {/* Premium Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
         
-        <div className="relative z-20 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
-          <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Welcome Home to <br/><span className="text-gold">Jesus Christ Ministries</span>
+        {/* Background Image with Gradients */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: 'url("https://images.unsplash.com/photo-1438283173091-5dbf5c5a3206?q=80&w=2000&auto=format&fit=crop")',
+          }}
+        />
+        {/* Gradient Overlays for readability and mood */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0B1426]/90 via-[#0B1426]/70 to-[#0B1426]" />
+        
+        {/* Content */}
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center mt-12">
+          
+          <div className="flex items-center gap-4 mb-8">
+            <div className="h-[1px] w-12 bg-[#E5C170]/50"></div>
+            <span className="text-[#E5C170] uppercase tracking-[0.3em] text-xs font-semibold">Welcome Home</span>
+            <div className="h-[1px] w-12 bg-[#E5C170]/50"></div>
+          </div>
+
+          <h1 className="font-serif text-6xl md:text-8xl text-white mb-6 leading-tight">
+            A Place Where <br/>
+            <span className="text-[#E5C170] italic font-light tracking-wide pr-2">Miracles</span> Happen
           </h1>
-          <p className="text-lg md:text-2xl mb-10 text-gray-200">
-            A Place Where Miracles Happen. Join us in faith, worship, and community.
+          
+          <p className="text-lg md:text-xl mb-12 text-gray-300 max-w-2xl leading-relaxed font-light">
+            At Jesus Christ Ministries we gather to worship, encounter the presence of God, and watch lives transformed by His grace. Come as you are.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <Link href="/live" className="flex items-center justify-center gap-2 bg-gold text-navy px-8 py-4 rounded-full font-bold text-lg hover:bg-white transition-all transform hover:scale-105">
-              <PlayCircle size={24} /> Watch Live
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-center justify-center">
+            <Link href="/live" className="flex items-center justify-center gap-2 bg-[#E5C170] text-[#0B1426] px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-white transition-all transform hover:scale-105 min-w-[200px]">
+              <Play size={18} /> Watch Live
             </Link>
-            <Link href="/prayer" className="flex items-center justify-center gap-2 bg-transparent border-2 border-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-all">
-              <Heart size={24} /> Prayer Request
+            <Link href="/prayer" className="flex items-center justify-center gap-2 bg-transparent border border-white/30 text-white px-8 py-3.5 rounded-full font-medium text-sm hover:bg-white/10 transition-all min-w-[220px]">
+              <Heart size={18} /> Submit Prayer Request
+            </Link>
+            <Link href="/inspiration" className="flex items-center justify-center gap-2 bg-transparent border border-white/30 text-white px-8 py-3.5 rounded-full font-medium text-sm hover:bg-white/10 transition-all min-w-[200px]">
+              <Sparkles size={18} /> Daily Inspiration
             </Link>
           </div>
-        </div>
-      </section>
 
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-8 text-center">
-          <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <h3 className="font-serif text-2xl font-bold mb-4 text-navy">Sunday Service</h3>
-            <p className="text-gray-600 mb-2">9:00 AM - Morning Worship</p>
-            <p className="text-gray-600">6:00 PM - Evening Service</p>
-          </div>
-          <div className="bg-navy text-white p-8 rounded-2xl shadow-md">
-            <BookOpen className="w-12 h-12 mx-auto text-gold mb-4" />
-            <h3 className="font-serif text-2xl font-bold mb-4">Daily Inspiration</h3>
-            <p className="mb-6 text-gray-300">Start your day with the Word of God.</p>
-            <Link href="/inspiration" className="text-gold font-semibold hover:underline">Read Today's Devotional &rarr;</Link>
-          </div>
-          <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <h3 className="font-serif text-2xl font-bold mb-4 text-navy">Midweek Revival</h3>
-            <p className="text-gray-600 mb-2">Wednesday 7:00 PM</p>
-            <p className="text-gray-600">Friday 7:00 PM (Youth)</p>
-          </div>
         </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 z-10">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-white">Scroll</span>
+          <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+
       </section>
     </div>
   );
