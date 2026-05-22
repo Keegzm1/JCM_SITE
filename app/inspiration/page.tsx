@@ -1,87 +1,92 @@
 'use client'
-import { useState } from 'react';
+
+import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import { ArrowLeft, BookOpen } from 'lucide-react';
+import { useState } from 'react';
 
-const INSPIRATION_DATA = {
-  Anxiety: {
-    scripture: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.",
-    reference: "Philippians 4:6",
-    prayer: "Lord, I give you my heavy heart. Replace my anxiety with your peace that surpasses all understanding. Guide my steps and calm my mind.",
-    encouragement: "God is in control. Breathe deep and trust that He is working all things for your good."
+const devotionals = [
+  {
+    date: 'Today',
+    title: 'Faith in Times of Uncertainty',
+    scripture: '2 Corinthians 5:7',
+    text: '"For we live by faith, not by sight." Sometimes life feels uncertain and our circumstances challenge our trust in God. Yet God invites us to walk by faith, trusting in His promises even when we cannot see the outcome. What area of your life needs more faith today?',
+    reflection: 'Take a moment to write down one area where God is asking you to trust Him more deeply. Commit it to prayer.',
   },
-  Healing: {
-    scripture: "Heal me, Lord, and I will be healed; save me and I will be saved, for you are the one I praise.",
-    reference: "Jeremiah 17:14",
-    prayer: "Heavenly Father, I ask for your healing touch. Restore my body, mind, and spirit according to your perfect will.",
-    encouragement: "By His stripes, we are healed. Stand firm in faith and trust in His miraculous power."
+  {
+    date: 'Yesterday',
+    title: 'The Strength of God',
+    scripture: 'Isaiah 40:31',
+    text: '"But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint." When we feel exhausted, God offers renewal. His strength is infinite and always available to those who trust in Him.',
+    reflection: 'Reflect on how God has renewed your strength in the past. Thank Him for His faithfulness.',
   },
-  Finances: {
-    scripture: "And my God will meet all your needs according to the riches of his glory in Christ Jesus.",
-    reference: "Philippians 4:19",
-    prayer: "Lord, I trust you as my provider. Grant me wisdom to manage what I have and faith to trust you for what I need.",
-    encouragement: "Your provision comes from the Lord. He sees your needs and will provide in His perfect timing."
-  }
-};
+  {
+    date: '2 Days Ago',
+    title: 'Love Never Fails',
+    scripture: '1 Corinthians 13:8',
+    text: '"Love never fails." In a world where many things disappoint us, love stands as the ultimate truth. God\'s love for us is unconditional, eternal, and unchanging. This love should flow through us to others.',
+    reflection: 'Who in your life needs to experience God\'s love through you today?',
+  },
+];
 
-type Category = keyof typeof INSPIRATION_DATA;
-const categories: Category[] = ['Anxiety', 'Healing', 'Finances'];
-
-export default function InspirationHub() {
-  const [selected, setSelected] = useState<Category>('Anxiety');
+export default function Inspiration() {
+  const [selectedDevotional, setSelectedDevotional] = useState(0);
+  const devotional = devotionals[selectedDevotional];
 
   return (
-    <div className="min-h-screen font-sans">
+    <div className="min-h-screen bg-[#0B1426]">
       <Navbar />
-      
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h1 className="font-serif text-4xl md:text-5xl text-navy font-bold mb-4">Inspiration Hub</h1>
-          <p className="text-gray-600 text-lg">What are you seeking guidance for today?</p>
+      <section className="pt-32 pb-20 px-4 max-w-4xl mx-auto">
+        <Link href="/" className="flex items-center gap-2 text-[#E5C170] mb-8 hover:text-white transition">
+          <ArrowLeft size={20} /> Back to Home
+        </Link>
+        
+        <h1 className="font-serif text-5xl md:text-7xl text-white mb-4">Daily Inspiration</h1>
+        <p className="text-gray-300 text-lg mb-12">Start your day with Scripture and meditation on God's Word.</p>
+        
+        {/* Current Devotional */}
+        <div className="bg-gradient-to-br from-[#E5C170]/10 to-transparent backdrop-blur border border-[#E5C170]/30 rounded-lg p-12 mb-12">
+          <div className="flex items-center gap-3 text-[#E5C170] mb-4">
+            <BookOpen size={24} />
+            <span className="text-sm font-semibold uppercase tracking-wider">{devotional.date}</span>
+          </div>
+          
+          <h2 className="font-serif text-4xl md:text-5xl text-white mb-4">{devotional.title}</h2>
+          
+          <p className="text-[#E5C170] font-semibold mb-6 italic text-lg">{devotional.scripture}</p>
+          
+          <p className="text-gray-200 leading-relaxed mb-8 text-lg">{devotional.text}</p>
+          
+          <div className="bg-white/5 rounded-lg p-6 border border-white/10">
+            <h4 className="text-white font-semibold mb-3">💭 Reflection</h4>
+            <p className="text-gray-300">{devotional.reflection}</p>
+          </div>
         </div>
-
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {categories.map((cat) => (
+        
+        {/* Devotional History */}
+        <h3 className="font-serif text-2xl text-white mb-6">Recent Devotionals</h3>
+        <div className="grid gap-4">
+          {devotionals.map((dev, index) => (
             <button
-              key={cat}
-              onClick={() => setSelected(cat)}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${
-                selected === cat 
-                  ? 'bg-navy text-gold shadow-md' 
-                  : 'bg-white text-charcoal border border-gray-200 hover:border-gold'
+              key={index}
+              onClick={() => setSelectedDevotional(index)}
+              className={`text-left p-6 rounded-lg border transition-all ${
+                selectedDevotional === index
+                  ? 'bg-[#E5C170]/20 border-[#E5C170]'
+                  : 'bg-white/5 border-white/10 hover:border-[#E5C170]/50'
               }`}
             >
-              {cat}
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-[#E5C170] text-sm font-semibold uppercase">{dev.date}</p>
+                  <h4 className="text-white font-serif text-xl mt-2">{dev.title}</h4>
+                  <p className="text-gray-400 text-sm mt-1 italic">{dev.scripture}</p>
+                </div>
+              </div>
             </button>
           ))}
         </div>
-
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
-          <div className="mb-8">
-            <h3 className="text-gold font-bold tracking-widest uppercase text-sm mb-4">The Word</h3>
-            <blockquote className="font-serif text-2xl md:text-3xl text-navy leading-relaxed mb-4">
-              "{INSPIRATION_DATA[selected].scripture}"
-            </blockquote>
-            <p className="text-gray-500 font-medium">— {INSPIRATION_DATA[selected].reference}</p>
-          </div>
-
-          <hr className="border-gray-100 my-8" />
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-gold font-bold tracking-widest uppercase text-sm mb-4">Prayer</h3>
-              <p className="text-charcoal leading-relaxed">
-                {INSPIRATION_DATA[selected].prayer}
-              </p>
-            </div>
-            <div>
-              <h3 className="text-gold font-bold tracking-widest uppercase text-sm mb-4">Encouragement</h3>
-              <p className="text-charcoal leading-relaxed">
-                {INSPIRATION_DATA[selected].encouragement}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
