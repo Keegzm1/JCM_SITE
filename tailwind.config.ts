@@ -13,6 +13,8 @@ const config: Config = {
         gold: '#D4AF37',
         cream: '#F8F5EE',
         charcoal: '#2E2E2E',
+        'dark-navy': '#0B1426',
+        'gold-light': '#E5C170',
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
